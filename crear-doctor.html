@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubimed | Paciente</title>
+    <!--bootstrap and font-->
+    <%- include('../includes/cssdefault.ejs') %>
+        <!--css-->
+        <link rel="stylesheet" href="./css/crear.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" style="width: 180px;" href="#">
+            <img src="./img/logo.png" width="100%" alt="logo ubimed">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Sitio web</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Soporte</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <br>
+    <div class="container mx-auto shadow">
+        <form autocomplete="off" action="/save-doctor" method="POST" class="w-100" enctype="multipart/form-data">
+            <input type="hidden" name="email" value="<%=user.email%>" required>
+            <input type="hidden" name="pass" value="<%=user.pass%>" required>
+            <div class="row mt-2">
+                <div class="row col-md-10 col-sm-10 ml-2 align-items-center">
+                    <p class="w-100 mt-3">Información personal:</p>
+                    <div class="rounded-circle col-sm-10 col-md-6 my-2">
+                        <img id="previewFoto" style="object-fit: cover;" width="80px" height="80px" src="../../img/camera.png" alt="foto de perfil" class="rounded-circle">
+                    </div>
+                    <div class="custom-file col-sm-10 col-md-6 my-2">
+                        <input type="file" accept="image/*" class="custom-file-input" name="rutaImg" id="fotoPerfil">
+                        <label class="custom-file-label" for="validatedCustomFile" data-browse="Elegir">Foto de Perfil</label>
+                    </div>
+                </div>
+                <div class="row col-md-12 mb-2 mx-auto">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Nombre/s</label>
+                        <input type="text" class="form-control" name="nombre" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputPassword4">Apellidos</label>
+                        <input type="text" class="form-control" name="apellido" required>
+                    </div>
+                </div>
+                <div class="row mb-3 col-md-12 mx-auto">
+                    <div class="form-group col-md-6 ">
+                        <label for="inputPassword4">Profesión:</label>
+                        <select name="profesion" class="form-control">
+                            <option value="Medicina">Medicina</option>
+                            <option value="Enfermería">Enfermería</option>
+                            <option value="Odontología">Odontología</option>
+                            <option value="Fisioterapia">Fisioterapia</option>
+                            <option value="Nutrición y dietetica">Nutrición y dietetica</option>
+                            <option value="Fonoaudiología">Fonoaudiología</option>
+                            <option value="Terapia ocupacional">Terapia ocupacional</option>
+                            <option value="Optometría">Optometría</option>
+                            <option value="Terapia respiratoria">Terapia respiratoria</option>
+                            <option value="Terapia física">Terapia física</option>
+                            <option value="Terapeuta del lenguaje">Terapeuta del lenguaje</option>
+                            <option value="Auxiliar de enfermería">Auxiliar de enfermería</option>
+                            <option value="Psicología">Psicología</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6 ">
+                        <label for="inputPassword4">Especialidad</label>
+                        <select class="form-control" name="especialidad" id="Especialidad" required>
+                           <option value="Alergología">Alergología</option>
+                           <option value="Anestesiología y reanimación">Anestesiología y reanimación</option>
+                           <option value="Angiología y cirugía vascular">Angiología y cirugía vascular</option>
+                           <option value="Cardiología">Cardiología</option>
+                           <option value="Cirugía cardiovascular">Cirugía cardiovascular</option>
+                           <option value="Cirugía general y del aparato digestivo">Cirugía general y del aparato digestivo</option>
+                           <option value="Cirugía oral y maxilofacial">Cirugía oral y maxilofacial</option>
+                           <option value="Cirugía ortopédica y traumatología">Cirugía ortopédica y traumatología</option>
+                           <option value="Cirugía pediátrica">Cirugía pediátrica</option>
+                           <option value="Cirugía plástica">Cirugía plástica</option>
+                           <option value="Cirugía torácica">Cirugía torácica</option>
+                           <option value="Colonproctología">Colonproctología</option>
+                           <option value="Dermatología">Dermatología</option>
+                           <option value="Endocrinología y nutrición">Endocrinología y nutrición</option>
+                           <option value="Endodoncia">Endodoncia</option>
+                           <option value="Gastroenterología">Gastroenterología</option>
+                           <option value="Genética clínica">Genética clínica</option>
+                           <option value="Geriatría">Geriatría</option>
+                           <option value="Hematología">Hematología</option>
+                           <option value="Hemodinamia">Hemodinamia</option>
+                           <option value="Infectología">Infectología</option>
+                           <option value="Inmunología">Inmunología</option>
+                           <option value="Medicina alternativa">Medicina alternativa</option>
+                           <option value="Medicina critica e intensivismo">Medicina critica e intensivismo</option>
+                           <option value="Medicina de emergencia">Medicina de emergencia</option>
+                           <option value="Medicina del sueño">Medicina del sueño</option>
+                           <option value="Medicina del trabajo">Medicina del trabajo</option>
+                           <option value="Medicina deportiva">Medicina deportiva</option>
+                           <option value="Medicina familiar y comunitaria">Medicina familiar y comunitaria</option>
+                           <option value="Medicina física, rehabilitación - fisiatría">Medicina física, rehabilitación - fisiatría</option>
+                           <option value="Medicina forense">Medicina forense</option>
+                           <option value="Medicina interna">Medicina interna</option>
+                           <option value="Medicina nuclear">Medicina nuclear</option>
+                           <option value="Alergología">Alergología</option>
+                           <option value="Nefrología">Nefrología</option>
+                           <option value="Neonatología">Neonatología</option>
+                           <option value="Neumología">Neumología</option>
+                           <option value="Neurocirugía">Neurocirugía</option>
+                           <option value="Neurología">Neurología</option>
+                           <option value="Obstetricia y ginecología">Obstetricia y ginecología</option>
+                           <option value="Odontología forense">Odontología forense</option>
+                           <option value="Odontología pediátrica">Odontología pediátrica</option>
+                           <option value="Oftalmología">Oftalmología</option>
+                           <option value="Oftalmólogo General">Oftalmólogo General</option>
+                           <option value="Oftalmólogo/ Pediatría  Estrabologia">Oftalmólogo/ Pediatría  Estrabologia</option>
+                           <option value="Oftalmólogo/Retina y Vítreo">Oftalmólogo/Retina y Vítreo</option>
+                           <option value="Oftalmólogo/Glaucoma">Oftalmólogo/Glaucoma</option>
+                           <option value="Oftalmólogo/Plástica y Órbita">Oftalmólogo/Plástica y Órbita</option>
+                           <option value="Oftalmólogo/Neuroftalmología">Oftalmólogo/Neuroftalmología</option>
+                           <option value="Oftalmólogo/Cornea y Refractiva">Oftalmólogo/Cornea y Refractiva</option>
+                           <option value="Oftalmólogo/Segmento Anterior">Oftalmólogo/Segmento Anterior</option>
+                           <option value="Oncología">Oncología</option>
+                           <option value="Ortodoncia">Ortodoncia</option>
+                           <option value="Ortopedia pediátrica">Ortopedia pediátrica</option>
+                           <option value="Ortopedia">Ortopedia</option>
+                           <option value="Otorrinolaringología">Otorrinolaringología</option>
+                           <option value="Alergología">Alergología</option>
+                           <option value="Patología">Patología</option>
+                           <option value="Pediatría">Pediatría</option>
+                           <option value="Pediatría Cardiología">Pediatría Cardiología</option>
+                           <option value="Pediatría Gastroenterología">Pediatría Gastroenterología</option>
+                           <option value="Pediatría Nefrología">Pediatría Nefrología</option>
+                           <option value="Pediatría Neumología">Pediatría Neumología</option>
+                           <option value="Pediatría Neurología">Pediatría Neurología</option>
+                           <option value="Pediatría Reumatología">Pediatría Reumatología</option>
+                           <option value="Peridoncia">Peridoncia</option>
+                           <option value="Psiquiatría">Psiquiatría</option>
+                           <option value="Psiquiatría pediátrica">Psiquiatría pediátrica</option>
+                           <option value="Radiología">Radiología</option>
+                           <option value="Rehabilitación Oral">Rehabilitación Oral</option>
+                           <option value="Reumatología">Reumatología</option>
+                           <option value="Toxicología">Toxicología</option>
+                           <option value="Urología">Urología</option>
+                           <option value="Patología">Patología</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row col-md-12 mb-2 mx-auto">
+                    <div class="form-group col-md-6">
+                        <label for="#">Documento de identificación:</label>
+                        <div class="row col-md-12">
+                            <div class="form-group">
+                                <select name="tipoDoc" class="form-control" name="tipoDoc">
+                                    <option value="documento">Seleccione documento</option>
+                                    <option value="CC">Cedula Ciudadanía</option>
+                                    <option value="CE">Cedula de extranjería</option>
+                                    <option value="PP">Pasaporte</option>
+                                </select>
+                            </div>
+                            <input type="text" class="form-control" name="cedula" placeholder="Numero de identificación" required aria-label="Text input with dropdown button">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputEmail4">Fecha Nacimiento</label>
+                        <input type="date" class="form-control" name="fechaNacimiento" required>
+                    </div>
+                </div>
+                <div class="row col-md-12 mb-2 mx-auto">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Genero</label>
+                        <select class="form-control" name="genero" required>
+                            <option value="Masculino">Genero</option>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Femenino">Femenino</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group col-md-12 mb-2">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Teléfono</label>
+                        <input type="tel" name="telefono" class="form-control" required>
+                    </div>
+                    <hr class="w-100">
+                </div>
+                <div class="row col-md-12 my-2 mx-auto">
+                    <div class="form-group col-md-4">
+                        <label for="inputEmail4">Dirección</label>
+                        <input type="text" name="direccion" class="form-control" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputPassword4">País</label>
+                        <input id="paisInput" type="text" name="pais" class="form-control autocomplete" required>
+                    </div>
+                    <div class="autocomplete form-group col-md-4">
+                        <label for="inputPassword4">Ciudad</label>
+                        <input type="text" name="ciudad" class="form-control" required>
+                    </div>
+                    <hr class="w-100">
+                    <div class="form-group col-md-6">
+                        <label for="inputPassword4">Numero de tarjeta profesional</label>
+                        <input type="text" name="numeroCarne" class="form-control autocomplete" required>
+                    </div>
+                    <div class="form-row d-flex mx-auto align-items-center justify-content-around">
+                        <div class="mb-2 d-flex align-items-center justify-content-center" style="width: 5rem;">
+                            <img id="previewFoto2" style="object-fit: contain;" width="120px" height="100px" src="../img/id-card.png" alt="foto de perfil">
+                        </div>
+                        <div class="custom-file col-md-6 mb-2">
+                            <input type="file" accept="image/*" class="custom-file-input" name="rutaCarne" id="fotoPerfil2" required>
+                            <label class="custom-file-label" for="validatedCustomFile" data-browse="Elegir">Foto de tarjeta profesional</label>
+                            <small class="text-muted">Toma una fotografiá a tu tarjeta profesional por la parte frontal</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-10 mx-auto my-3">
+                    <button type="submit" class="btn btn-main btn-block">Crear Usuario</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <br>
+    <!--bootstrap-->
+    <%- include('../includes/jsbootstrap') %>
+        <script src="./js/crear.js"></script>
+        <script>
+            function readImage(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#previewFoto').attr('src', e.target.result); // Renderizamos la imagen
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $("#fotoPerfil").change(function() {
+                // Código a ejecutar cuando se detecta un cambio de archivo
+                readImage(this);
+            });
+
+            function readImage2(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#previewFoto2').attr('src', e.target.result); // Renderizamos la imagen
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $("#fotoPerfil2").change(function() {
+                // Código a ejecutar cuando se detecta un cambio de archivo
+                readImage2(this);
+            });
+        </script>
+</body>
+
+</html>

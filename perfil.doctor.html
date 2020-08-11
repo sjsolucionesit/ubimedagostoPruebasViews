@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubimed | Perfil Doctor</title>
+    <!--bootstrap and font-->
+    <%- include('../includes/cssdefault.ejs') %>
+        <!--css-->
+        <link rel="stylesheet" href="./css/navegador.css">
+        <style>
+            i{
+                cursor: pointer;
+            }
+        </style>
+</head>
+
+<body class="bg-light">
+    <div class="w-100 d-flex justify-content-between align-items-stretch">
+        <%- include('../includes/navegador.doctor.ejs')%>
+            <div class="main-index">
+                <div class="mx-auto my-2 d-flex justify-content-center align-items-center mt-3" style="width: 95%;">
+                    <div class="p-3 bg-white rounded mx-auto col-md-8 col-sm-12 shadow-sm" style="border-left: solid 5px #40D4A1 !important;">
+                        <div class="w-100 mb-2" style="background: #40D4A1;">
+                            <p class="text-white ml-2">Mi perfil</p>
+                        </div>
+                        <div class="row d-flex align-items-center">
+                            <div class="col-md-3 col-sm-6">
+                                <img src="<%=usuario.rutaImg%>" class="img-fluid rounded-circle" alt="foto de perfil ubimed">
+                            </div>
+                            <div class="col-md-8 col-sm-6 p-3 d-flex flex-column">
+                                <div class="w-100 d-flex justify-content-end align-items-end flex-column">
+                                    <h3 class="text-right" style="word-break: keep-all;">Hola,
+                                        <%=usuario.nombre%>
+                                        <%=usuario.apellido%>
+                                        <button  class="btn ml-0 p-0" onclick="mostrarForm()"><i class="far fa-edit" style="color: #40D4A1;"></i></button>
+                                    </h3>
+                                    <p class="m-0 text-right"><%=usuario.profesion%></p>
+                                    <select id="profesionDiv" class="d-none my-1 form-control col-md-6" name="profesion" class="form-control">
+                                        <option value="Medicina">Medicina</option>
+                                        <option value="Enfermería">Enfermería</option>
+                                        <option value="Odontología">Odontología</option>
+                                        <option value="Fisioterapia">Fisioterapia</option>
+                                        <option value="Nutrición y dietetica">Nutrición y dietetica</option>
+                                        <option value="Fonoaudiología">Fonoaudiología</option>
+                                        <option value="Terapia ocupacional">Terapia ocupacional</option>
+                                        <option value="Optometría">Optometría</option>
+                                        <option value="Terapia respiratoria">Terapia respiratoria</option>
+                                        <option value="Terapia física">Terapia física</option>
+                                        <option value="Terapeuta del lenguaje">Terapeuta del lenguaje</option>
+                                        <option value="Auxiliar de enfermería">Auxiliar de enfermería</option>
+                                        <option value="Psicología">Psicología</option>
+                                    </select>
+                                    <p class="m-0 text-right"><%=usuario.especialidad%></p>
+                                    <select id="especialidadDiv" class="d-none my-1 form-control col-md-6" name="especialidad" id="Especialidad" required>
+                                        <option value="Alergología">Alergología</option>
+                                        <option value="Anestesiología y reanimación">Anestesiología y reanimación</option>
+                                        <option value="Angiología y cirugía vascular">Angiología y cirugía vascular</option>
+                                        <option value="Cardiología">Cardiología</option>
+                                        <option value="Cirugía cardiovascular">Cirugía cardiovascular</option>
+                                        <option value="Cirugía general y del aparato digestivo">Cirugía general y del aparato digestivo</option>
+                                        <option value="Cirugía oral y maxilofacial">Cirugía oral y maxilofacial</option>
+                                        <option value="Cirugía ortopédica y traumatología">Cirugía ortopédica y traumatología</option>
+                                        <option value="Cirugía pediátrica">Cirugía pediátrica</option>
+                                        <option value="Cirugía plástica">Cirugía plástica</option>
+                                        <option value="Cirugía torácica">Cirugía torácica</option>
+                                        <option value="Colonproctología">Colonproctología</option>
+                                        <option value="Dermatología">Dermatología</option>
+                                        <option value="Endocrinología y nutrición">Endocrinología y nutrición</option>
+                                        <option value="Endodoncia">Endodoncia</option>
+                                        <option value="Gastroenterología">Gastroenterología</option>
+                                        <option value="Genética clínica">Genética clínica</option>
+                                        <option value="Geriatría">Geriatría</option>
+                                        <option value="Hematología">Hematología</option>
+                                        <option value="Hemodinamia">Hemodinamia</option>
+                                        <option value="Infectología">Infectología</option>
+                                        <option value="Inmunología">Inmunología</option>
+                                        <option value="Medicina alternativa">Medicina alternativa</option>
+                                        <option value="Medicina critica e intensivismo">Medicina critica e intensivismo</option>
+                                        <option value="Medicina de emergencia">Medicina de emergencia</option>
+                                        <option value="Medicina del sueño">Medicina del sueño</option>
+                                        <option value="Medicina del trabajo">Medicina del trabajo</option>
+                                        <option value="Medicina deportiva">Medicina deportiva</option>
+                                        <option value="Medicina familiar y comunitaria">Medicina familiar y comunitaria</option>
+                                        <option value="Medicina física, rehabilitación - fisiatría">Medicina física, rehabilitación - fisiatría</option>
+                                        <option value="Medicina forense">Medicina forense</option>
+                                        <option value="Medicina interna">Medicina interna</option>
+                                        <option value="Medicina nuclear">Medicina nuclear</option>
+                                        <option value="Alergología">Alergología</option>
+                                        <option value="Nefrología">Nefrología</option>
+                                        <option value="Neonatología">Neonatología</option>
+                                        <option value="Neumología">Neumología</option>
+                                        <option value="Neurocirugía">Neurocirugía</option>
+                                        <option value="Neurología">Neurología</option>
+                                        <option value="Obstetricia y ginecología">Obstetricia y ginecología</option>
+                                        <option value="Odontología forense">Odontología forense</option>
+                                        <option value="Odontología pediátrica">Odontología pediátrica</option>
+                                        <option value="Oftalmología">Oftalmología</option>
+                                        <option value="Oncología">Oncología</option>
+                                        <option value="Ortodoncia">Ortodoncia</option>
+                                        <option value="Ortopedia pediátrica">Ortopedia pediátrica</option>
+                                        <option value="Ortopedia">Ortopedia</option>
+                                        <option value="Otorrinolaringología">Otorrinolaringología</option>
+                                        <option value="Alergología">Alergología</option>
+                                        <option value="Patología">Patología</option>
+                                        <option value="Pediatría">Pediatría</option>
+                                        <option value="Pediatría Cardiología">Pediatría Cardiología</option>
+                                        <option value="Pediatría Gastroenterología">Pediatría Gastroenterología</option>
+                                        <option value="Pediatría Nefrología">Pediatría Nefrología</option>
+                                        <option value="Pediatría Neumología">Pediatría Neumología</option>
+                                        <option value="Pediatría Neurología">Pediatría Neurología</option>
+                                        <option value="Pediatría Reumatología">Pediatría Reumatología</option>
+                                        <option value="Peridoncia">Peridoncia</option>
+                                        <option value="Psiquiatría">Psiquiatría</option>
+                                        <option value="Psiquiatría pediátrica">Psiquiatría pediátrica</option>
+                                        <option value="Radiología">Radiología</option>
+                                        <option value="Rehabilitación Oral">Rehabilitación Oral</option>
+                                        <option value="Reumatología">Reumatología</option>
+                                        <option value="Toxicología">Toxicología</option>
+                                        <option value="Urología">Urología</option>
+                                        <option value="Patología">Urología pediátrica</option>
+                                    </select>
+                                    <p class="m-0 text-right">Tarjeta profesional: <%=usuario.numeroCarne%></p>
+                                    <input id="carneDiv" type="text" class="form-control my-2 d-none col-md-6 text-center" value="<%=usuario.numeroCarne%>">
+                            </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-6 p-3 d-flex flex-column">
+                                <div class="col-md-8 mt-2">
+                                    <p class="w-100 m-0" style="word-break: keep-all;">Usuario:
+                                        <%=usuario.email%>
+                                    </p>
+                                </div>
+                                <div class="col-md-8 mt-2">
+                                    <div class="d-flex justify-content-start align-items-end">
+                                        <p class="m-0">Teléfono: <%=usuario.telefono%></p>
+                                    </div>
+                                    <div id="telefonoDiv" class="actualizarDatos form-group col-md-12 d-none justify-content-between align-items-center" style="position: relative;">
+                                        <input type="text" name="telefono" class="form-control" value="<%=usuario.telefono%>" >
+                                    </div>
+                                </div>
+                                <div class="col-md-8 mt-2">
+                                    <div class="d-flex justify-content-start align-items-end">
+                                        <p class="m-0">Cedula: <%=usuario.cedula%></p>
+                                    </div>
+                                    <div id="cedulaDiv" class="actualizarDatos form-group col-md-12 d-none justify-content-between align-items-center" style="position: relative;">
+                                        <input type="text" name="cedula" class="form-control" value="<%=usuario.cedula%>" >
+                                    </div>
+                                </div>
+                                <div class="col-md-8 mt-2">
+                                    <div class="d-flex justify-content-start align-items-end">
+                                        <p class="m-0">Fecha de nacimiento: <%=usuario.fechaNacimiento%></p>
+                                    </div>
+                                    <div id="fechaDiv" class="actualizarDatos form-group col-md-12 d-none justify-content-between align-items-center" style="position: relative;">
+                                        <input type="date" name="fechaNacimiento" value="<%=usuario.fechaNacimiento%>" class="form-control" >
+                                    </div>
+                                </div>
+                                <div class="col-md-8 mt-2">
+                                    <div class="d-flex justify-content-start align-items-end">
+                                        <p class="m-0">Genero: <%=usuario.genero%></p>
+                                    </div>
+                                    <div id="generoDiv" class="actualizarDatos form-group col-md-12 d-none justify-content-between align-items-center" style="position: relative;">
+                                        <select class="form-control" name="genero" required>
+                                            <option value="<%=usuario.genero%>"><%=usuario.genero%></option>
+                                            <option value="Masculino">Masculino</option>
+                                            <option value="Femenino">Femenino</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 mt-2">
+                                    <div class="d-flex justify-content-start align-items-end">
+                                        <p class="m-0">Direccion: <%=usuario.direccion%></p>
+                                    </div>
+                                    <div id="direccionDiv" class="actualizarDatos form-group col-md-12 d-none justify-content-between align-items-center" style="position: relative;">
+                                        <input type="text" name="direccion" class="form-control" value="<%=usuario.direccion%>" >
+                                    </div>
+                                </div>
+                                <div class="col-md-8 mt-2 d-flex">
+                                    <div class="d-flex justify-content-start align-items-end">
+                                        <p class="m-0">Pais: <%=usuario.pais%></p>
+                                    </div>
+                                    <div class="d-flex justify-content-start align-items-end ml-1">
+                                        <p class="m-0">Ciudad: <%=usuario.ciudad%></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 mt-2">
+                                    <div id="paisDiv" class="actualizarDatos form-group col-md-12 d-none justify-content-between align-items-center" style="position: relative;">
+                                        <input type="text" name="pais" class="form-control" value="<%=usuario.pais%>" >
+                                    </div>
+                                    <div id="ciudadDiv" class="actualizarDatos form-group col-md-12 d-none justify-content-between align-items-center" style="position: relative;">
+                                        <input type="text" name="ciudad" class="form-control" value="<%=usuario.ciudad%>" >
+                                    </div>
+                                </div>
+                                <div id="contenedorAlerta">
+                                </div>
+                                <button id="actualizarDiv" onclick="actualizarDatos()" class="d-none btn btn-sec">Actualizar</button>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script src="./js/doctor/perfil.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubimed | Consulta</title>
+    <!--bootstrap and font-->
+    <%- include('../includes/cssdefault.ejs') %>
+        <!--css-->
+        <link rel="stylesheet" href="./css/navegador.css">
+        <link rel="stylesheet" href="./css/consulta.paciente.css">
+        <script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.min.js">
+        </script>
+</head>
+
+<body style="background: whitesmoke;">
+    <div class="w-100 h-100 d-flex justify-content-between align-items-stretch">
+        <%- include('../includes/navegador.paciente.ejs')%>
+            <div id="contenedorPrincipal" class="main-index">
+                <div class="mx-auto p-1 my-2 row">
+                    <div id="video" class="col-md-6 col-sm-12 p-2" style="background: whitesmoke;">
+                        <div id="renderFecha" class="w-100 p-3 border rounded shadow-sm mb-2">
+                        </div>
+                        <div id="medico" class="w-100 d-none" style="width: 100%; height: 500px; position: relative; z-index: 1;">
+                            <div id="paciente" style="top: 10px; left: 10px; width: 40%; height: 40%; position: absolute; z-index: 2;">
+                            </div>
+                            <div class="mx-auto d-flex justify-content-center" style="w-100 bottom: 10px; right: 10px; z-index: 3000;">
+                                <button id="finishConsulta" class="btn btn-danger btn-block">Finalizar VideoConsulta</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 mx-auto my-3" style="padding: 65px 0px;">
+                            <p id="leyendCAll" class="w-100 text-center">Podrás realizar tu videoconsulta 5 minutos antes o hasta 10 minutos después de la hora programada, es necesario leer y aceptar el consentimiento informado.</p>
+                            <button id="ocultarBtnConsentimiento" onclick="aceptarConsentimiento()" class="btn btn-block btn-sec">Consentimiento Informado</button>
+                            <button id="btnLlamar" class="btn btn-block btn-secondary" disabled>Iniciar Videoconsulta</button>
+                        </div>
+                        <div class="w-100 col-sm-12 mx-auto my-1 shadow-sm p-3 text-center">
+                            <h3 id="reloj" class="h3">25:00</h3>
+                            <hr class="mb-1">
+                            <small class="text-muted">Tiempo de consulta</small>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12" style="background: whitesmoke;">
+                        <div id="renderFichaDoctor" class="w-100 flex-wrap bg-white border rounded d-flex justify-content-between align-items-center p-2 mb-2">
+                        </div>
+                        <div class="w-100 col-sm-12 mx-auto my-2 bg-white rounded shadow-sm p-3 text-center">
+                            <div class="w-100">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="customFile">
+                                    <label class="custom-file-label" for="customFile">Documentos de apoyo</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="contOpinion" class="w-100">
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1" class="text-muted">Que opinas sobre tu profesional de la salud.</label>
+                                <textarea class="form-control" id="textOpinion" rows="4"></textarea>
+                            </div>
+                            <button id="btnOpinar" class="btn btn-block btn-sec">Opinar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="modal fade" id="consentimientoRender" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div id="contRenderPdf" class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Consentimiento Informado</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                </div>
+                <div class="modal-body border">
+                    <div id="loadPdf" class="w-100 text-center">
+                        <p>Cargando</p>
+                    </div>
+                    <div id="my_pdf_viewer" class="d-none w-100 justify-content-center align-items-center flex-column">
+                        <div id="canvas_container" class="d-flex justify-content-center">
+                            <canvas id="pdf_renderer"></canvas>
+                        </div>
+                        <div class="d-flex justify-content-between mt-1">
+                            <button class="btn" onclick="previusPdf()"><i class="fas fa-arrow-circle-right fa-2x" style="transform: rotate(180deg); color: #3AB0F0;"></i></button>
+                            <button class="btn" onclick="nextPdf()"><i class="fas fa-arrow-circle-right fa-2x" style="color: #3AB0F0;"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button id="simularFirmaCompra" onclick="aceptarConsentimientoConfirm()" type="button" class="btn btn-primary">Acepto</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--bootstrap-->
+    <%- include('../includes/jsbootstrap') %>
+        <!--JS-->
+        <script src="./js/paciente/consulta.js"></script>
+</body>
+
+</html>

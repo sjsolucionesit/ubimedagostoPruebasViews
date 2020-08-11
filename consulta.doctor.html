@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubimed | Consulta</title>
+    <!--bootstrap and font-->
+    <%- include('../includes/cssdefault.ejs') %>
+        <!--css-->
+        <link rel="stylesheet" href="./css/navegador.css">
+        <link rel="stylesheet" href="./css/consulta.doctor.css">
+        <script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
+        <style>
+            table,
+            th,
+            td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            
+            th,
+            td {
+                padding: 2px 4px;
+                text-align: left;
+            }
+        </style>
+</head>
+
+<body style="background: whitesmoke;">
+    <div class="w-100 h-100 d-flex justify-content-between align-items-stretch">
+        <%- include('../includes/navegador.doctor.ejs')%>
+            <div id="contenedorPrincipal" class="main-index">
+                <div class="mx-auto p-1 my-2 row" style="width: 95%;">
+                    <div class="col-md-6">
+                        <div id="video" class="col-md-12 col-sm-12 p-2" style="background: whitesmoke;">
+                            <div id="renderFecha" class="w-100 p-3 border rounded shadow-sm mb-2">
+                            </div>
+                            <small id="leyendEspera" class="text-success d-none">Espera a tu paciente</small>
+                            <div id="paciente" class="w-100 d-none" style="width: 100%; height: 500px; position: relative; z-index: 1;">
+                                <div id="medico" style="top: 10px; left: 10px; width: 40%; height: 40%; position: absolute; z-index: 2;">
+                                </div>
+                                <div class="mx-auto d-flex justify-content-center" style="bottom: 10px; right: 10px; z-index: 3000;">
+                                    <button id="finishConsulta" class="btn btn-danger btn-block">Finalizar VideoConsulta</button>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12 mx-auto my-3" style="padding: 155px 10px;">
+                                <p id="leyendCAll" class="w-100 text-center">Podrás realizar tu videoconsulta 5 minutos antes o hasta 10 minutos después de la hora programada</p>
+                                <button id="btnLlamar" class="btn btn-block btn-main">Iniciar Videoconsulta</button>
+                            </div>
+
+                            <div class="w-100 col-sm-12 d-flex align-items-center justify-content-around mx-auto my-2 bg-white rounded shadow-sm p-1 text-center">
+                                <button class="btn"><i class="fas fa-folder-open" style="color: #41E296"></i></button>
+                                <small class="text-muted">Documentos de apoyo</small>
+                            </div>
+                            <div class="w-100 col-sm-12 mx-auto my-1 shadow-sm p-3 text-center">
+                                <h4 id="reloj" class="h4">25:00</h4>
+                                <hr class="mb-1">
+                                <small class="text-muted">Tiempo de consulta</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 p-2">
+                        <div id="renderFichaPaciente" class="w-100 mb-2 mt-0 flex-wrap bg-white border rounded d-flex justify-content-between align-items-center p-2 mb-2">
+                        </div>
+                        <div class="w-100 shadow-sm p-2">
+                            <div class="form-group">
+                                <label style="font-size: .9em;" class="m-0" for="exampleFormControlTextarea1">Motivo de consulta.</label>
+                                <input type="text" value="" class="form-control" id="renderMotivo" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label style="font-size: .9em;" class="m-0" for="exampleFormControlTextarea1">Antecedentes Alérgicos: <small class="text-muted" style="font-size: .9em;">Separa tus antecedentes con, 'coma'.</small></label>
+                                <input type="text" value="" class="form-control text-danger" id="renderAlergias">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-size: .9em;" class="m-0" for="exampleFormControlTextarea1">Antecedentes (Farmacológicos, Quirúrgicos, Familiares, Otros). <small class="text-muted" style="font-size: .9em;">Separa tus antecedentes con, 'coma'.</small></label>
+                                <input type="text" value="" class="form-control" id="renderAntecedentes">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-size: .9em;" class="m-0" for="exampleFormControlTextarea1">Enfermedad actual.</label>
+                                <textarea class="form-control datosPdf" id="textArea1" rows="1"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label style="font-size: .9em;" class="m-0" for="exampleFormControlTextarea1">Hallazgos y observaciones.</label>
+                                <textarea id="wanted" class="form-control datosPdf" rows="2"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label style="font-size: .9em;" class="m-0" for="exampleFormControlTextarea1">Evaluación paraclinicos</label>
+                                <textarea id="paraDes" class="form-control datosPdf" rows="1"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label style="font-size: .9em;" class="m-0" for="exampleFormControlTextarea1">Impresión diagnostica (CIE10).</label>
+                                <div class="w-100">
+                                    <input id="cie10Input" class="form-control datosPdf mb-2" placeholder="CIE 10" required>
+                                </div>
+                                <textarea id="desDiagnostica" class="form-control datosPdf" rows="1" placeholder="Diagnostico clínico."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label style="font-size: .9em;" class="m-0" for="exampleFormControlTextarea1">Recomendación y plan.</label>
+                                <textarea id="recommended" class="form-control datosPdf" rows="2"></textarea>
+                            </div>
+                            <div class="d-flex justify-content-around align-items-center row">
+                                <button id="formularFirmar" class="btn btn-sec" data-toggle="modal" data-target="#generarHCModal">Generar PDF</button>
+                                <button id="btnFormula" type="button" class="btn btn-sec" onclick="abrirFormula()" data-toggle="modal">
+                                    Formular
+                                </button>
+                                <button id="firmar" class="btn btn-main">Cerrar y enviar</button>
+                            </div>
+                            <div class="w-100 d-flex align-items-center mt-2">
+                                <a id="descargarHc" download="" class="btn d-none align-items-center" style="cursor: pointer;">
+                                    <small class="text-success mr-2">HC generada</small>
+                                    <i class="far fa-file-pdf text-danger"></i>
+                                </a>
+                                <a id="descargarFormula" download="" class="btn d-none align-items-center" style="cursor: pointer;">
+                                    <small class="text-success mr-2">Formula </small>
+                                    <i class="far fa-file-pdf text-danger"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <div class="modal fade bd-example-modal-lg" id="generarHCModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div id="getDataHc" class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="contenidoFormula" class="modal-body">
+                    <div class="w-100 p-2">
+                        <div id="diagDatosBas" class="w-100">
+                        </div>
+                        <div id="diag" class="w-100">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="loadPdfHcSim" class="btn btn-sec" onclick="GuardarPdf()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade bd-example-modal-lg" id="formularDiv" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalScrollableTitle">Formula Medica</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                </div>
+                <div class="modal-body">
+                    <div id="diagDatosBas2" class="w-100">
+                    </div>
+                    <div class="container">
+                        <br>
+                        <div class="row">
+                            <label for="">Formula medica</label>
+                            <textarea name="formulaMedicaInput" class="form-control" id="formulaMedicaInput" cols="30" rows="12"></textarea>
+                        </div>
+                        <br>
+                        <hr>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" onclick="GuardarFormula()" class="btn btn-primary">Generar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--bootstrap-->
+    <%- include('../includes/jsbootstrap') %>
+        <!--JS-->
+        <script src="./js/doctor/consulta.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubimed | Bienvenido</title>
+    <!--bootstrap and font-->
+    <%- include('../includes/cssdefault.ejs') %>
+        <!--css-->
+        <link rel="stylesheet" href="./css/login.css">
+</head>
+
+<body>
+    <div id="contInfo" class="login">
+        <div class="main">
+            <div class="col-md-8 col-sm-10">
+                <div class="row shadow rounded p-3 rounded">
+                    <% if(CreatePacient.length > 0){ %>
+                        <div class="col-md-12 alert alert-success">
+                            <button type="button" class="close ml-2" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <%=CreatePacient%>
+                        </div>
+                        <% } %>
+                            <% if(noPass.length > 0){ %>
+                                <div class="col-md-12 alert alert-danger">
+                                    <button type="button" class="close ml-2" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    <%=noPass%>
+                                </div>
+                                <% } %>
+                                    <% if(noVerify.length > 0){ %>
+                                        <div class="col-md-12 alert alert-warning">
+                                            <button type="button" class="close ml-2" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                            <%=noVerify%>
+                                        </div>
+                                        <% } %>
+                                            <% if(noUser.length > 0){ %>
+                                                <div class="col-md-12 alert alert-danger">
+                                                    <button type="button" class="close ml-2" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                    <%=noUser%>
+                                                </div>
+                                                <% } %>
+                                                    <% if(verify.length > 0){ %>
+                                                        <div class="col-md-12 alert alert-success">
+                                                            <button type="button" class="close ml-2" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                            <%=verify%>
+                                                        </div>
+                                                        <% } %>
+                                                            <div class="col-md-6 col-sm-8" style="background: white;">
+                                                                <br>
+                                                                <br>
+                                                                <div class="mb-2 mt-2 col-md-6 col-sm-6 mx-auto">
+                                                                    <img src="./img/logo.png" alt="logo ubimed" style="width: 100%;">
+                                                                </div>
+                                                                <div class="col-md-11 my-2 mx-auto col-sm-10">
+                                                                    <form action="/auth" method="POST" class="w-100 mx-auto">
+                                                                        <div class="form-group">
+                                                                            <input type="email" name="email" class="form-control bg-light text-center" aria-describedby="emailHelp" placeholder="Email" required>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <input type="password" name="pass" class="form-control bg-light text-center" placeholder="Contraseña" required>
+                                                                        </div>
+                                                                        <button type="submit" class="btn btn-main btn-block">Iniciar Sesión</button>
+                                                                    </form>
+                                                                    <hr>
+                                                                    <div class="w-100 d-flex align-items-center justify-content-center flex-column">
+                                                                        <form id="changePass" action="/change-pass" class="form-inline w-100 d-none">
+                                                                            <small id="emailRecuperateLenged3" class="text-success m-0 d-none">Revisa tu correo, se envió un pin de verificación</small>
+                                                                            <small id="emailRecuperateLenged4" class="text-danger m-0 d-none">Pin incorrecto</small>
+                                                                            <input id="pinInp" type="tel" name="pinVerify" class="form-control w-100 mb-2" style="font-size: .8em;" placeholder="Ingresa el pin">
+                                                                            <input id="changeEma" type="hidden" name="email" value="">
+                                                                            <input id="newPass" type="password" name="password1" class="form-control w-100 mb-2" style="font-size: .8em;" placeholder="Ingresa la nueva contraseña">
+                                                                            <input id="newPass2" type="password" name="password2" class="form-control w-100 mb-2" style="font-size: .8em;" placeholder="Confirma tu contraseña">
+                                                                            <button id="ressPass" class="btn btn-main" style="font-size: .8em;">Restablecer</button>
+                                                                        </form>
+                                                                        <form id="recuperate" class="form-inline w-100 d-none">
+                                                                            <small id="emailRecuperateLenged" class="text-danger m-0 d-none">Correo no valido</small>
+                                                                            <small id="emailRecuperateLenged2" class="text-danger m-0 d-none">Correo no existe en nuestros servicios</small>
+                                                                            <input id="emailArecupar" type="email" class="form-control w-100" name="email" id="emailRecuperate" placeholder="Ingrese su email">
+                                                                            <button id="btnRecuperar" class="btn btn-block btn-main mt-2">Recuperar Contraseña</button>
+                                                                        </form>
+                                                                        <button id="btnOlvidasteTuContraseña" class="btn text-primary" onclick="mostrarRecuperacion();">Olvidaste tu contraseña?</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 col-sm-8">
+                                                                <div class="col-md-11 my-2 col-sm-10">
+                                                                    <form class="w-100 ">
+                                                                        <h3 style="color: #41E296">Aun no tienes cuenta? <small>Registrate</small> </h3>
+                                                                        <div class="form-group">
+                                                                            <label for="email" class="text-muted">Usuario:</label>
+                                                                            <input id="emailCreate" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Email" required>
+                                                                            <small id="emailValidate" class="text-danger m-0 d-none">Correo no valido</small>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="email" class="text-muted">Utiliza una contraseña segura:</label>
+                                                                            <input id="pass" type="password" class="form-control mb-3" placeholder="Contraseña" required>
+                                                                            <input id="confirmPass" type="password" class="form-control m-0" placeholder="Confirmar contraseña" required>
+                                                                            <small id="alertPass" class="text-danger m-0 d-none">Tus contraseñas no concuerdan</small>
+                                                                            <small id="successPass" class="text-success m-0 d-none">Tus contraseñas concuerdan</small>
+                                                                        </div>
+                                                                        <div class="form-group form-check">
+                                                                            <input id="acceptTC" type="checkbox" class="form-check-input" required>
+                                                                            <label class="form-check-label" for="exampleCheck1">Aceptas los Términos & Condiciones</label>
+                                                                        </div>
+                                                                        <button id="createUserBtn" type="submit" class="btn btn-sec shadow-sm btn-block">Crear Cuenta</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                </div>
+            </div>
+        </div>
+        <div class="selectRol">
+            <div class="col-md-12 col-sm-8 mx-auto d-flex justify-content-center">
+                <div class="row col-sm-8 mx-auto d-flex justify-content-center">
+                    <h1 class=" w-100 text-center mb-5 text-muted">¿Quien Eres?</h1>
+                    <div id="selectPac" class="p-2 col-md-6 col-sm-8 border-right mb-2 d-flex justify-content-center align-items-center" style="border-radius: 20px;">
+                        <div class="row d-flex justify-content-center align-items-center">
+                            <div class="w-50 d-flex justify-content-center align-items-center">
+                                <i class="fas fa-hospital-user fa-3x" style="color: #3AB0F0; font-size: 7.4em;"></i>
+                            </div>
+                            <div class="w-50 d-flex justify-content-start align-items-center">
+                                <h3 class="w-50 text-muted">Soy Paciente</h3>
+                            </div>
+                        </div>
+                        <form id="formPaciente" action="/crear-paciente" method="POST" class="d-none">
+                            <input id="emailUser" type="hidden" name="email" value="">
+                            <input id="passUser" type="hidden" name="pass" value="">
+                        </form>
+                    </div>
+                    <div id="selectDoc" class="p-2 mx-auto col-md-6 col-sm-8 border-left mb-2 d-flex justify-content-center align-items-center" style="border-radius: 20px;">
+                        <div class="row">
+                            <div class="w-50 d-flex justify-content-center align-items-center">
+                                <i class="fas fa-user-md" style="font-size: 7em; color: #41E296"></i>
+                            </div>
+                            <div class="w-50 d-flex justify-content-start align-items-center">
+                                <h3 class="w-100 text-muted">Soy profesional de la salud</h3>
+                            </div>
+                        </div>
+                        <form id="formDoctor" action="/crear-doctor" method="POST" class="d-none">
+                            <input id="emailDoc" type="hidden" name="email" value="">
+                            <input id="passDoc" type="hidden" name="pass" value="">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <!--bootstrap-->
+    <%- include('../includes/jsbootstrap') %>
+        <!--JS-->
+        <script src="js/login/animate.js"></script>
+</body>
+
+</html>

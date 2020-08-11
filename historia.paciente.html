@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubimed | Historia clínica</title>
+    <!--bootstrap and font-->
+    <%- include('../includes/cssdefault.ejs') %>
+        <!--css-->
+        <link rel="stylesheet" href="./css/navegador.css">
+</head>
+
+<body class="bg-light">
+    <div class="w-100 d-flex justify-content-between align-items-stretch">
+        <%- include('../includes/navegador.paciente.ejs')%>
+            <div class="main-index">
+                <div class="mx-auto my-2" style="width: 95%;">
+                    <div class="p-3 bg-white rounded mx-auto col-md-8 col-sm-12 shadow-sm" style="border-left: solid 5px #40D4A1 !important;">
+                        <small>Aun no has generado historia clínica con nuestros servicios.</small>
+                    </div>
+                </div>
+            </div>
+</body>
+
+</html>

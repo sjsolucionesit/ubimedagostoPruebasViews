@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubimed | Mi perfil</title>
+    <!--bootstrap and font-->
+    <%- include('../includes/cssdefault.ejs') %>
+        <!--css-->
+        <link rel="stylesheet" href="./css/navegador.css">
+        <link rel="stylesheet" href="css/perfil.paciente.css">
+</head>
+
+<body class="bg-light">
+    <div class="w-100 d-flex justify-content-between align-items-stretch">
+        <%- include('../includes/navegador.paciente.ejs')%>
+            <div class="main-index">
+                <div class="mx-auto my-2" style="width: 95%;">
+                    <div class="p-3 bg-white rounded mx-auto col-md-8 col-sm-12 shadow-sm" style="border-left: solid 5px #40D4A1 !important;">
+                        <div class="w-100 mb-2" style="background: #40D4A1;">
+                            <p class="text-white ml-2">Mi perfil</p>
+                        </div>
+                        <div class="row d-flex align-items-center">
+                            <div class="col-md-3 col-sm-6">
+                                <img src="<%=usuario.rutaImg%>" class="img-circular rounded-circle" alt="foto de perfil ubimed">
+                            </div>
+                            <div class="col-md-8 col-sm-6 p-3 d-flex flex-column">
+                                <div class="w-100">
+                                    <h3 class="text-right" style="word-break: keep-all;">Hola,
+                                        <%=usuario.nombre%>
+                                            <%=usuario.apellido%>
+                                    </h3>
+                                    <p class="w-100 text-muted m-0 text-right" style="word-break: keep-all;">Email:
+                                        <%=usuario.email%>
+                                    </p>
+                                    <p class="w-100 text-muted m-0 text-right" style="word-break: keep-all;">Teléfono:
+                                        <%=usuario.telefono%>
+                                    </p>
+                                    <p class="w-100 text-muted m-0 text-right" style="word-break: keep-all;">Cedula:
+                                        <%=usuario.cedula%>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <hr>
+                                <div class="w-100">
+                                    <p id="leyendaSalud" class="text-muted">Agrega tu servicio de salud.</p>
+                                    <fieldset class="form-group mb-0">
+                                        <div id="handleSalud" class="row">
+                                            <p class="col-form-label col-sm-6 pt-0 mb-2">Tu servicio de salud es:</p>
+                                            <div class="col-sm-6 mx-auto">
+                                                <div class="btn-group" role="group" aria-label="Basic example">
+                                                    <button id="activateEps" type="button" class="btn btn-main">Eps</button>
+                                                    <button id="activatePre" type="button" class="btn btn-sec">Prepagada</button>
+                                                    <button id="activatePar" type="button" class="btn btn-success" style="font-weight: 600;">Particular</button>
+                                                </div>
+                                            </div>
+                                            <form id="formEps" autocomplete="off" class="d-none form-row col-sm-12 my-2">
+                                                <p class="m-0 text-success mt-3">Tu salud es brindada por un servicio de una eps</p>
+                                                <div class="autocomplete col-sm-8 p-0 mb-2">
+                                                    <input id="eps" class="form-control" type="text" name="myCountry" placeholder="Nombre eps">
+                                                </div>
+                                                <button id="btnEps" class="btn col-sm-3 btn-main ml-md-1 ml-sm-0 mb-2">Guardar</button>
+                                            </form>
+                                            <form id="formPar" autocomplete="off" class="form-row col-sm-12 my-2 d-none">
+                                                <p class="m-0 text-success mt-3">Tu salud es brindada por un servicio particular</p>
+                                                <div class="autocomplete col-sm-8 p-0 mb-2">
+                                                    <input id="prepagada" class="form-control" type="text" name="myCountry" value="Particular" placeholder="Nombre particular">
+                                                </div>
+                                                <button id="btnPre" class="btn col-sm-3 btn-main ml-md-1 ml-sm-0 mb-2">Guardar</button>
+                                            </form>
+                                            <form id="formPre" autocomplete="off" class="form-row col-sm-12 my-2 d-none">
+                                                <p class="m-0 text-success mt-3">Tu salud es brindada por un servicio prepagado</p>
+                                                <div class="autocomplete col-sm-8 p-0 mb-2">
+                                                    <input id="particular" class="form-control" type="text" name="myCountry" placeholder="Nombre prepagada">
+                                                </div>
+                                                <button id="btnPar" class="btn col-sm-3 btn-main  ml-md-1 ml-sm-0 mb-2">Guardar</button>
+                                            </form>
+                                        </div>
+                                        <hr>
+                                    </fieldset>
+                                    <div class="form-group">
+                                        <p id="leyendaOcupacion">Describa su ocupación: </p>
+                                        <div id="handleOcupacion" class="row">
+                                            <div class="form-row col-sm-12">
+                                                <div class="col-md-6 col-sm-12 mb-2">
+                                                    <label for="tipoOcupacion">Ocupación: </label>
+                                                    <select id="tipoOcupacion" class="form-control">
+                                                            <option value="Independiente">Independiente</option>
+                                                            <option value="Dependiente">Dependiente</option>
+                                                            <option value="Trabajador publico">Trabajador publico</option>
+                                                            <option value="Estudiante">Estudiante</option>
+                                                        </select>
+                                                </div>
+                                                <div class="col-md-6 col-sm-12 mb-2">
+                                                    <label for="tipoOcupacion">Profesión / Ocupación: </label>
+                                                    <input id="descOcupacion" type="text" class="form-control" placeholder="">
+                                                </div>
+                                            </div>
+                                            <button id="btnOcupacion" class="btn btn-sec ml-3">Guardar</button>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group">
+                                        <p class="mb-1 text-danger" style="font-size: 1.2em;">Antecedentes alérgicos</p>
+                                        <div id="handleAlergias" class="form-row">
+                                            <div id="inputAlergia" class="col-md-6">
+                                                <div class="w-100 mt-2">
+                                                    <input id="validador" type="text" class="form-control casillaAlergia" placeholder="Descripción">
+                                                </div>
+                                            </div>
+                                            <div class="col mt-sm-2 mt-2">
+                                                <button id="addAler" class="form-control btn btn-main" onclick="addAlergia()"> Add </button>
+                                            </div>
+                                            <div class="col mt-sm-2 mt-2">
+                                                <button id="saveAlergias" class="form-control btn btn-sec" onclick="guardarAlergias()"> Guardar </button>
+                                            </div>
+                                        </div>
+                                        <div id="viewAlergias">
+                                            <small>Describe tus alergias una por una.</small>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p class="mb-1" style="font-size: 1.2em;">Antecedentes (Farmacológicos, Quirúrgicos, Familiares, Otros)</p>
+                                        <div class="form-row">
+                                            <div class="col-md-6">
+                                                <div id="contInputs" class="w-100 mt-2">
+                                                    <input id="inputAntecedentes" type="text" class="form-control antecedentesOtros mt-2" placeholder="Descripción" >
+                                                </div>
+                                            </div>
+                                            <div class="col mt-sm-2 mt-2">
+                                                <button class="form-control btn btn-main" onclick="addAntecedentes()"> Add </button>
+                                            </div>
+                                            <div class="col mt-sm-2 mt-2">
+                                                <button id="btnSaveAntecedentes" class="form-control btn btn-sec" onclick="saveAntecedentes()"> Guardar </button>
+                                            </div>
+                                        </div>
+                                        <div id="contAntecedentes" class="w-100">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</body>
+<!--bootstrap-->
+<%- include('../includes/jsbootstrap') %>
+    <!--JS-->
+    <script src="./js/paciente/perfil.js"></script>
+
+</html>
